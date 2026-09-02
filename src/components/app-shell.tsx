@@ -41,7 +41,7 @@ import { StudioGlyph } from "@/components/studio-kit";
 import { StudioUIContext } from "@/components/studio-ui-context";
 import { useTheme } from "@/components/theme-provider";
 import { currentUser, notifications } from "@/lib/mock-data";
-import { getStudio, homeNav, studioNav, type NavItem } from "@/lib/studios";
+import { getStudio, homeNav, studioNav, type HomePath, type NavItem } from "@/lib/studios";
 import { cn } from "@/lib/utils";
 
 function SholokMark() {
@@ -64,7 +64,7 @@ function NavList({
   activeSection,
   onNavigate,
 }: {
-  items: NavItem[];
+  items: (NavItem & { to?: HomePath })[];
   studioId?: string;
   activeSection: string;
   onNavigate?: () => void;
@@ -112,12 +112,7 @@ function NavList({
         }
 
         return (
-          <Link
-            key={item.label}
-            to={item.section === "" ? "/" : `/${item.section}`}
-            onClick={onNavigate}
-            className={cls}
-          >
+          <Link key={item.label} to={item.to ?? "/"} onClick={onNavigate} className={cls}>
             {inner}
           </Link>
         );
@@ -357,10 +352,6 @@ export function AppShell({ children }: { children: ReactNode }) {
 
           {/* Mobile bottom navigation */}
           <nav className="fixed bottom-0 left-0 right-0 z-30 flex border-t border-border bg-background/95 px-2 py-1.5 backdrop-blur-md lg:hidden">
-            {[
-              { label: "Home", to: "/", icon: LayoutGrid },
-              { label: "Studios", to: "/studios", icon: Settings },
-            ].map(() => null)}
             <Link
               to="/"
               className="flex flex-1 flex-col items-center gap-0.5 rounded-lg py-1.5 text-[11px] font-medium text-muted-foreground"

@@ -177,14 +177,25 @@ export const accentClasses: Record<
 
 export type NavItem = { label: string; section: string; icon: LucideIcon };
 
-export const homeNav: NavItem[] = [
-  { label: "Overview", section: "", icon: Home },
-  { label: "My Studios", section: "studios", icon: LayoutGrid },
-  { label: "Recent Activity", section: "activity", icon: ListChecks },
-  { label: "Notifications", section: "notifications", icon: Bell },
-  { label: "Tasks", section: "tasks", icon: ClipboardList },
-  { label: "Analytics", section: "analytics", icon: BarChart3 },
-  { label: "Settings", section: "settings", icon: Settings },
+export type HomePath =
+  | "/"
+  | "/studios"
+  | "/activity"
+  | "/notifications"
+  | "/tasks"
+  | "/analytics"
+  | "/settings";
+
+export type HomeNavItem = NavItem & { to: HomePath };
+
+export const homeNav: HomeNavItem[] = [
+  { label: "Overview", section: "", to: "/", icon: Home },
+  { label: "My Studios", section: "studios", to: "/studios", icon: LayoutGrid },
+  { label: "Recent Activity", section: "activity", to: "/activity", icon: ListChecks },
+  { label: "Notifications", section: "notifications", to: "/notifications", icon: Bell },
+  { label: "Tasks", section: "tasks", to: "/tasks", icon: ClipboardList },
+  { label: "Analytics", section: "analytics", to: "/analytics", icon: BarChart3 },
+  { label: "Settings", section: "settings", to: "/settings", icon: Settings },
 ];
 
 export const studioNav: Record<StudioKind, NavItem[]> = {
