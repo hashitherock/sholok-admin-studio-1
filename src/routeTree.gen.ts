@@ -16,6 +16,7 @@ import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as StudiosRouteImport } from './routes/studios'
 import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as StudioStudioIdRouteImport } from './routes/studio.$studioId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +53,11 @@ const TasksRoute = TasksRouteImport.update({
   path: '/tasks',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudioStudioIdRoute = StudioStudioIdRouteImport.update({
+  id: '/studio/$studioId',
+  path: '/studio/$studioId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +67,7 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/studios': typeof StudiosRoute
   '/tasks': typeof TasksRoute
+  '/studio/$studioId': typeof StudioStudioIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +77,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/studios': typeof StudiosRoute
   '/tasks': typeof TasksRoute
+  '/studio/$studioId': typeof StudioStudioIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,6 +88,7 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/studios': typeof StudiosRoute
   '/tasks': typeof TasksRoute
+  '/studio/$studioId': typeof StudioStudioIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -91,6 +100,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/studios'
     | '/tasks'
+    | '/studio/$studioId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -100,6 +110,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/studios'
     | '/tasks'
+    | '/studio/$studioId'
   id:
     | '__root__'
     | '/'
@@ -109,6 +120,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/studios'
     | '/tasks'
+    | '/studio/$studioId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -119,6 +131,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRoute
   StudiosRoute: typeof StudiosRoute
   TasksRoute: typeof TasksRoute
+  StudioStudioIdRoute: typeof StudioStudioIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -172,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TasksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/studio/$studioId': {
+      id: '/studio/$studioId'
+      path: '/studio/$studioId'
+      fullPath: '/studio/$studioId'
+      preLoaderRoute: typeof StudioStudioIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -183,6 +203,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRoute,
   StudiosRoute: StudiosRoute,
   TasksRoute: TasksRoute,
+  StudioStudioIdRoute: StudioStudioIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
