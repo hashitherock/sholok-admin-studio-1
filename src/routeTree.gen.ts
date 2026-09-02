@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActivityRouteImport } from './routes/activity'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as StudiosRouteImport } from './routes/studios'
 
 const IndexRoute = IndexRouteImport.update({
@@ -23,6 +24,11 @@ const ActivityRoute = ActivityRouteImport.update({
   path: '/activity',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudiosRoute = StudiosRouteImport.update({
   id: '/studios',
   path: '/studios',
@@ -32,30 +38,34 @@ const StudiosRoute = StudiosRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
+  '/notifications': typeof NotificationsRoute
   '/studios': typeof StudiosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
+  '/notifications': typeof NotificationsRoute
   '/studios': typeof StudiosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
+  '/notifications': typeof NotificationsRoute
   '/studios': typeof StudiosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/activity' | '/studios'
+  fullPaths: '/' | '/activity' | '/notifications' | '/studios'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/activity' | '/studios'
-  id: '__root__' | '/' | '/activity' | '/studios'
+  to: '/' | '/activity' | '/notifications' | '/studios'
+  id: '__root__' | '/' | '/activity' | '/notifications' | '/studios'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActivityRoute: typeof ActivityRoute
+  NotificationsRoute: typeof NotificationsRoute
   StudiosRoute: typeof StudiosRoute
 }
 
@@ -75,6 +85,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ActivityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/studios': {
       id: '/studios'
       path: '/studios'
@@ -88,6 +105,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActivityRoute: ActivityRoute,
+  NotificationsRoute: NotificationsRoute,
   StudiosRoute: StudiosRoute,
 }
 export const routeTree = rootRouteImport
