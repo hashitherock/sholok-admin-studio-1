@@ -17,6 +17,7 @@ import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as StudiosRouteImport } from './routes/studios'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as StudioStudioIdRouteImport } from './routes/studio.$studioId'
+import { Route as StudioStudioIdIndexRouteImport } from './routes/studio.$studioId.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const StudioStudioIdRoute = StudioStudioIdRouteImport.update({
   path: '/studio/$studioId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudioStudioIdIndexRoute = StudioStudioIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StudioStudioIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -67,7 +73,8 @@ export interface FileRoutesByFullPath {
   '/settings': typeof SettingsRoute
   '/studios': typeof StudiosRoute
   '/tasks': typeof TasksRoute
-  '/studio/$studioId': typeof StudioStudioIdRoute
+  '/studio/$studioId': typeof StudioStudioIdRouteWithChildren
+  '/studio/$studioId/': typeof StudioStudioIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -77,7 +84,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/studios': typeof StudiosRoute
   '/tasks': typeof TasksRoute
-  '/studio/$studioId': typeof StudioStudioIdRoute
+  '/studio/$studioId': typeof StudioStudioIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -88,7 +95,8 @@ export interface FileRoutesById {
   '/settings': typeof SettingsRoute
   '/studios': typeof StudiosRoute
   '/tasks': typeof TasksRoute
-  '/studio/$studioId': typeof StudioStudioIdRoute
+  '/studio/$studioId': typeof StudioStudioIdRouteWithChildren
+  '/studio/$studioId/': typeof StudioStudioIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +109,7 @@ export interface FileRouteTypes {
     | '/studios'
     | '/tasks'
     | '/studio/$studioId'
+    | '/studio/$studioId/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -121,6 +130,7 @@ export interface FileRouteTypes {
     | '/studios'
     | '/tasks'
     | '/studio/$studioId'
+    | '/studio/$studioId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -131,7 +141,7 @@ export interface RootRouteChildren {
   SettingsRoute: typeof SettingsRoute
   StudiosRoute: typeof StudiosRoute
   TasksRoute: typeof TasksRoute
-  StudioStudioIdRoute: typeof StudioStudioIdRoute
+  StudioStudioIdRoute: typeof StudioStudioIdRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -192,8 +202,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioStudioIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/studio/$studioId/': {
+      id: '/studio/$studioId/'
+      path: '/'
+      fullPath: '/studio/$studioId/'
+      preLoaderRoute: typeof StudioStudioIdIndexRouteImport
+      parentRoute: typeof StudioStudioIdRoute
+    }
   }
 }
+
+interface StudioStudioIdRouteChildren {
+  StudioStudioIdIndexRoute: typeof StudioStudioIdIndexRoute
+}
+
+const StudioStudioIdRouteChildren: StudioStudioIdRouteChildren = {
+  StudioStudioIdIndexRoute: StudioStudioIdIndexRoute,
+}
+
+const StudioStudioIdRouteWithChildren = StudioStudioIdRoute._addFileChildren(
+  StudioStudioIdRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -203,7 +232,7 @@ const rootRouteChildren: RootRouteChildren = {
   SettingsRoute: SettingsRoute,
   StudiosRoute: StudiosRoute,
   TasksRoute: TasksRoute,
-  StudioStudioIdRoute: StudioStudioIdRoute,
+  StudioStudioIdRoute: StudioStudioIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
