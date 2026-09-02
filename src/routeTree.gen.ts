@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as StudiosRouteImport } from './routes/studios'
+import { Route as TasksRouteImport } from './routes/tasks'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const StudiosRoute = StudiosRouteImport.update({
   path: '/studios',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TasksRoute = TasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
   '/notifications': typeof NotificationsRoute
   '/studios': typeof StudiosRoute
+  '/tasks': typeof TasksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activity': typeof ActivityRoute
   '/notifications': typeof NotificationsRoute
   '/studios': typeof StudiosRoute
+  '/tasks': typeof TasksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/activity': typeof ActivityRoute
   '/notifications': typeof NotificationsRoute
   '/studios': typeof StudiosRoute
+  '/tasks': typeof TasksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/activity' | '/notifications' | '/studios'
+  fullPaths: '/' | '/activity' | '/notifications' | '/studios' | '/tasks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/activity' | '/notifications' | '/studios'
-  id: '__root__' | '/' | '/activity' | '/notifications' | '/studios'
+  to: '/' | '/activity' | '/notifications' | '/studios' | '/tasks'
+  id: '__root__' | '/' | '/activity' | '/notifications' | '/studios' | '/tasks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +76,7 @@ export interface RootRouteChildren {
   ActivityRoute: typeof ActivityRoute
   NotificationsRoute: typeof NotificationsRoute
   StudiosRoute: typeof StudiosRoute
+  TasksRoute: typeof TasksRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudiosRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/tasks': {
+      id: '/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   ActivityRoute: ActivityRoute,
   NotificationsRoute: NotificationsRoute,
   StudiosRoute: StudiosRoute,
+  TasksRoute: TasksRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
