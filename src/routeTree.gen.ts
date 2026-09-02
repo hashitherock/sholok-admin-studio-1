@@ -18,6 +18,7 @@ import { Route as StudiosRouteImport } from './routes/studios'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as StudioStudioIdRouteImport } from './routes/studio.$studioId'
 import { Route as StudioStudioIdIndexRouteImport } from './routes/studio.$studioId.index'
+import { Route as StudioStudioIdSectionRouteImport } from './routes/studio.$studioId.$section'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +65,11 @@ const StudioStudioIdIndexRoute = StudioStudioIdIndexRouteImport.update({
   path: '/',
   getParentRoute: () => StudioStudioIdRoute,
 } as any)
+const StudioStudioIdSectionRoute = StudioStudioIdSectionRouteImport.update({
+  id: '/$section',
+  path: '/$section',
+  getParentRoute: () => StudioStudioIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/studios': typeof StudiosRoute
   '/tasks': typeof TasksRoute
   '/studio/$studioId': typeof StudioStudioIdRouteWithChildren
+  '/studio/$studioId/$section': typeof StudioStudioIdSectionRoute
   '/studio/$studioId/': typeof StudioStudioIdIndexRoute
 }
 export interface FileRoutesByTo {
@@ -84,6 +91,7 @@ export interface FileRoutesByTo {
   '/settings': typeof SettingsRoute
   '/studios': typeof StudiosRoute
   '/tasks': typeof TasksRoute
+  '/studio/$studioId/$section': typeof StudioStudioIdSectionRoute
   '/studio/$studioId': typeof StudioStudioIdIndexRoute
 }
 export interface FileRoutesById {
@@ -96,6 +104,7 @@ export interface FileRoutesById {
   '/studios': typeof StudiosRoute
   '/tasks': typeof TasksRoute
   '/studio/$studioId': typeof StudioStudioIdRouteWithChildren
+  '/studio/$studioId/$section': typeof StudioStudioIdSectionRoute
   '/studio/$studioId/': typeof StudioStudioIdIndexRoute
 }
 export interface FileRouteTypes {
@@ -109,6 +118,7 @@ export interface FileRouteTypes {
     | '/studios'
     | '/tasks'
     | '/studio/$studioId'
+    | '/studio/$studioId/$section'
     | '/studio/$studioId/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -119,6 +129,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/studios'
     | '/tasks'
+    | '/studio/$studioId/$section'
     | '/studio/$studioId'
   id:
     | '__root__'
@@ -130,6 +141,7 @@ export interface FileRouteTypes {
     | '/studios'
     | '/tasks'
     | '/studio/$studioId'
+    | '/studio/$studioId/$section'
     | '/studio/$studioId/'
   fileRoutesById: FileRoutesById
 }
@@ -209,14 +221,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StudioStudioIdIndexRouteImport
       parentRoute: typeof StudioStudioIdRoute
     }
+    '/studio/$studioId/$section': {
+      id: '/studio/$studioId/$section'
+      path: '/$section'
+      fullPath: '/studio/$studioId/$section'
+      preLoaderRoute: typeof StudioStudioIdSectionRouteImport
+      parentRoute: typeof StudioStudioIdRoute
+    }
   }
 }
 
 interface StudioStudioIdRouteChildren {
+  StudioStudioIdSectionRoute: typeof StudioStudioIdSectionRoute
   StudioStudioIdIndexRoute: typeof StudioStudioIdIndexRoute
 }
 
 const StudioStudioIdRouteChildren: StudioStudioIdRouteChildren = {
+  StudioStudioIdSectionRoute: StudioStudioIdSectionRoute,
   StudioStudioIdIndexRoute: StudioStudioIdIndexRoute,
 }
 

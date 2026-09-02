@@ -9,7 +9,7 @@ import { useStudioUI } from "@/components/studio-ui-context";
 import { accentClasses, studios, type Studio } from "@/lib/studios";
 import { cn } from "@/lib/utils";
 
-export function StudioSwitcher({ active }: { active?: Studio }) {
+export function StudioSwitcher({ active }: { active?: Studio | undefined }) {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const { openCreateStudio } = useStudioUI();
