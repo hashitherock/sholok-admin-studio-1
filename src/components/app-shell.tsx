@@ -65,9 +65,9 @@ function NavList({
   onNavigate,
 }: {
   items: (NavItem & { to?: HomePath })[];
-  studioId?: string;
+  studioId?: string | undefined;
   activeSection: string;
-  onNavigate?: () => void;
+  onNavigate?: (() => void) | undefined;
 }) {
   return (
     <nav className="space-y-1">

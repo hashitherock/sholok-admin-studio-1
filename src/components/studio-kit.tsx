@@ -83,9 +83,9 @@ export function MetricCard({
 }: {
   label: string;
   value: string;
-  delta?: string;
-  trend?: "up" | "down";
-  icon?: LucideIcon;
+  delta?: string | undefined;
+  trend?: "up" | "down" | undefined;
+  icon?: LucideIcon | undefined;
 }) {
   return (
     <div className="surface-panel hover-raise p-4">

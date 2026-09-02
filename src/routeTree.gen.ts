@@ -10,33 +10,150 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ActivityRouteImport } from './routes/activity'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
+import { Route as NotificationsRouteImport } from './routes/notifications'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as StudiosRouteImport } from './routes/studios'
+import { Route as TasksRouteImport } from './routes/tasks'
+import { Route as StudioStudioIdRouteImport } from './routes/studio.$studioId'
+import { Route as StudioStudioIdIndexRouteImport } from './routes/studio.$studioId.index'
+import { Route as StudioStudioIdSectionRouteImport } from './routes/studio.$studioId.$section'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ActivityRoute = ActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudiosRoute = StudiosRouteImport.update({
+  id: '/studios',
+  path: '/studios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TasksRoute = TasksRouteImport.update({
+  id: '/tasks',
+  path: '/tasks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioStudioIdRoute = StudioStudioIdRouteImport.update({
+  id: '/studio/$studioId',
+  path: '/studio/$studioId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudioStudioIdIndexRoute = StudioStudioIdIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => StudioStudioIdRoute,
+} as any)
+const StudioStudioIdSectionRoute = StudioStudioIdSectionRouteImport.update({
+  id: '/$section',
+  path: '/$section',
+  getParentRoute: () => StudioStudioIdRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
+  '/analytics': typeof AnalyticsRoute
+  '/notifications': typeof NotificationsRoute
+  '/settings': typeof SettingsRoute
+  '/studios': typeof StudiosRoute
+  '/tasks': typeof TasksRoute
+  '/studio/$studioId': typeof StudioStudioIdRouteWithChildren
+  '/studio/$studioId/$section': typeof StudioStudioIdSectionRoute
+  '/studio/$studioId/': typeof StudioStudioIdIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
+  '/analytics': typeof AnalyticsRoute
+  '/notifications': typeof NotificationsRoute
+  '/settings': typeof SettingsRoute
+  '/studios': typeof StudiosRoute
+  '/tasks': typeof TasksRoute
+  '/studio/$studioId/$section': typeof StudioStudioIdSectionRoute
+  '/studio/$studioId': typeof StudioStudioIdIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/activity': typeof ActivityRoute
+  '/analytics': typeof AnalyticsRoute
+  '/notifications': typeof NotificationsRoute
+  '/settings': typeof SettingsRoute
+  '/studios': typeof StudiosRoute
+  '/tasks': typeof TasksRoute
+  '/studio/$studioId': typeof StudioStudioIdRouteWithChildren
+  '/studio/$studioId/$section': typeof StudioStudioIdSectionRoute
+  '/studio/$studioId/': typeof StudioStudioIdIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/activity'
+    | '/analytics'
+    | '/notifications'
+    | '/settings'
+    | '/studios'
+    | '/tasks'
+    | '/studio/$studioId'
+    | '/studio/$studioId/$section'
+    | '/studio/$studioId/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/activity'
+    | '/analytics'
+    | '/notifications'
+    | '/settings'
+    | '/studios'
+    | '/tasks'
+    | '/studio/$studioId/$section'
+    | '/studio/$studioId'
+  id:
+    | '__root__'
+    | '/'
+    | '/activity'
+    | '/analytics'
+    | '/notifications'
+    | '/settings'
+    | '/studios'
+    | '/tasks'
+    | '/studio/$studioId'
+    | '/studio/$studioId/$section'
+    | '/studio/$studioId/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ActivityRoute: typeof ActivityRoute
+  AnalyticsRoute: typeof AnalyticsRoute
+  NotificationsRoute: typeof NotificationsRoute
+  SettingsRoute: typeof SettingsRoute
+  StudiosRoute: typeof StudiosRoute
+  TasksRoute: typeof TasksRoute
+  StudioStudioIdRoute: typeof StudioStudioIdRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +165,95 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/activity': {
+      id: '/activity'
+      path: '/activity'
+      fullPath: '/activity'
+      preLoaderRoute: typeof ActivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studios': {
+      id: '/studios'
+      path: '/studios'
+      fullPath: '/studios'
+      preLoaderRoute: typeof StudiosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tasks': {
+      id: '/tasks'
+      path: '/tasks'
+      fullPath: '/tasks'
+      preLoaderRoute: typeof TasksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/$studioId': {
+      id: '/studio/$studioId'
+      path: '/studio/$studioId'
+      fullPath: '/studio/$studioId'
+      preLoaderRoute: typeof StudioStudioIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/studio/$studioId/': {
+      id: '/studio/$studioId/'
+      path: '/'
+      fullPath: '/studio/$studioId/'
+      preLoaderRoute: typeof StudioStudioIdIndexRouteImport
+      parentRoute: typeof StudioStudioIdRoute
+    }
+    '/studio/$studioId/$section': {
+      id: '/studio/$studioId/$section'
+      path: '/$section'
+      fullPath: '/studio/$studioId/$section'
+      preLoaderRoute: typeof StudioStudioIdSectionRouteImport
+      parentRoute: typeof StudioStudioIdRoute
+    }
   }
 }
 
+interface StudioStudioIdRouteChildren {
+  StudioStudioIdSectionRoute: typeof StudioStudioIdSectionRoute
+  StudioStudioIdIndexRoute: typeof StudioStudioIdIndexRoute
+}
+
+const StudioStudioIdRouteChildren: StudioStudioIdRouteChildren = {
+  StudioStudioIdSectionRoute: StudioStudioIdSectionRoute,
+  StudioStudioIdIndexRoute: StudioStudioIdIndexRoute,
+}
+
+const StudioStudioIdRouteWithChildren = StudioStudioIdRoute._addFileChildren(
+  StudioStudioIdRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ActivityRoute: ActivityRoute,
+  AnalyticsRoute: AnalyticsRoute,
+  NotificationsRoute: NotificationsRoute,
+  SettingsRoute: SettingsRoute,
+  StudiosRoute: StudiosRoute,
+  TasksRoute: TasksRoute,
+  StudioStudioIdRoute: StudioStudioIdRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
